@@ -1,0 +1,493 @@
+Note: this file is in reversed chronological order (bottom to top).
+
+
+July 13, 2002:
+ - BRLTTY 3.0 released:
+   New Bootdisk Hacking Mini-HowTo. (sd)
+   Updated screen patch (for 3.9.11) provided. Rudolf Weeber <Rudolf.Weeber@gmx.de>
+   Implement in-line contracted braille facility. John Boyer <director@chpi.org>
+   Develop contraction table for grade 2 US English braille. John Boyer <director@chpi.org>
+   Implement generic driver parameters facility. (dm,sd)
+   Resolve conflict between .dat and .conf both being called configuration files. (dm)
+      Default file extension .dat becomes .prefs.
+      CMD_CONFMENU -> CMD_PREFMENU
+      CMD_SAVECONF -> CMD_PREFSAVE
+      CMD_RESET -> CMD_PREFLOAD
+   Normalize short options. (dm)
+      -p becomes -S
+      -c becomes -p
+   Normalize long options. (dm)
+      --braille becomes --braille-driver
+      --config becomes --preferences-file
+      --device becomes --braille-device
+      --log becomes --log-level
+      --speech becomes --speech-driver
+      --speechparm becomes --speech-parameters
+      --table becomes --text-table
+   normalize brltty.conf directives. (dm)
+      braille-configuration becomes preferences-file
+      dot-translation becomes text-table
+      speech-driverparm becomes speech-parameters
+   Add -c (--contraction-table=) option to specify six-dot braille translation. (dm)
+   Add -e (--standard-error) option to log to standard error rather than via syslog. (dm,sd)
+   Add -f (--configuration-file=) option to specify default parameters file (brltty.conf). (dm)
+   Recognize level names (and abbreviations thereof) for -l (--log-level=) option. (dm)
+      (emergency, alert, critical, error, warning, notice, information, debug)
+   Add -n (--no-daemon) option to make debugging easier and to permit invocation from inittab. (dm,sd)
+   Add -B (--braille-parameters=) option, and the braille-parameters brltty.conf directive. (dm)
+   Add -E (--environment-variables) option to allow boot parameters. (dm,sd)
+   Implement user-settable attributes translation table. (dm)
+      Introduce short option -a.
+      Introduce long option --attributes-table=.
+      Introduce brltty.conf directive attributes-table.
+   Add -M (--message-delay=) option. (dm)
+   Add -N (--no-speech) option. (dm)
+   Add -P (--pid-file=) option. (dm)
+   Add -R (--refresh-interval=) option. (dm)
+   Add -X (--screen-parameters=) option. (dm)
+   Add the acm= (default, iso01, vt100, cp437, user) screen parameter. (dm)
+   Implement BrailleNote driver. (dm) with help from Mike Pedersen <mpedersen@mindspring.com>
+   Implement HandyTech driver. Andreas Gross <andi@andi-bika.de>
+   Add Bookworm support. (dm)
+   Implement LogText driver. (dm) with help from Hans Schou <chlor@schou.dk>
+   Implement Voyager driver. (sd) with help from Stephane Dalton <sdalton@videotron.ca>
+   BrailleLite driver enhancements. (sd)
+      Auto-detect 18 verses 40.
+      Add DETECT_FOREVER option.
+      Add USE_TEXTTRANS option.
+      Add bindings for search backward/forward.
+      Add bindings for move to previous/next paragraph.
+      Add bindings for switch to previous/next virtual terminal.
+      Change binding for restart driver to a safer combination.
+      Add shortcut for one-digit repeat count.
+      Fix bug causing internal cursor to go off display during g-chord with advance bar left.
+      Fix k-chord to toggle off keyboard emulation.
+      Fix day-one startup segfault bug.
+      Add baudrate parameter.
+      Add kbemu parameter.
+      Portability fixes.
+   Papenmeier driver enhancements:
+      Remove special-case code for routing keys. (ah)
+      Recognize key "routing" in configuration file. (ah)
+      Allow routing keys to be bound to modifier keys. (ah)
+      Recognize toggle modifiers "on" and "off" in configuration file. (ah)
+      Add on/off capability to existing toggle key definitions. (ah)
+      Allow command to be bound to just modifier keys. (ah)
+      Implement input mode and special key support. (ah,dm)
+      Remove yacc noise from make. (dm,ah)
+      Clean up log messages. (dm)
+      Log display type even if unknown. (dm)
+      For displays with an easy access bar: (dm)
+         Change left2 from HOME to BACK.
+      For displays with 9 front keys: (dm)
+         Change 1+3 from TOP to TOP_LEFT.
+         Change 1+7 from BOT to BOT_LEFT.
+         Move cut begin/end from 2/8 to 1/9.
+         Add paste as 1+9 (for displays with less than 13 status cells).
+         Move half window left/right from 1+5/9+5 to 2/8.
+         Switch lnup/lndn to 3/7 and winup/windn to 4/6.
+         Add more horizontal motion commands.
+      For displays with 13 front keys: (dm)
+         Define keys 1-4 and 10-13 as modifiers.
+         Define 1+13 as paste.
+         Add many more commands.
+      For displays with 22 status keys: (dm)
+         Fix key assignments: 5-8 -> 6-9.
+         Define 4 as back.
+         Move info from 8 to 5.
+         Define 8 as input mode toggle.
+         Display current virtual screen number in 11.
+      Define status key commands for displays with 4 status cells. (dm)
+      Rename environment variable BRLTTY_CONF to BRLTTY_PM_CONF. (dm)
+      Key releases no longer interrupt message waits. (dm)
+      Remove conditional compiling for debugging. (dm)
+      Add driver parameters: configfile, debugreads, debugwrites, debugkeys. (dm)
+      Wait indefinitely for braille display to be connected. (dm)
+   TSI driver enhancements. (sd)
+      Add bindings for go to beginning/end of current line.
+   Clean up Alva parallel port build. (dm) + Andreas Gross <andi@andi-bika.de>
+   Version 1.0 of the EuroBraille driver. Yannick Plassiard <Yannick.Plassiard@free.fr>
+   Fix MiniBraille delay after write. (dm)
+   Vario driver can now be statically linked. (dm)
+   Add cut-and-paste for VideoBraille. Christian Comaschi <christian_comaschi@libero.it>
+   Add identification output to VisioBraille driver. (dm)
+   Add support for 5.0 PROM family to VisioBraille driver. Sébastien Hinderer <Sebastien.Hinderer@ens-lyon.fr>
+   Add program, uid, and gid parameters to ExternalSpeech driver. (sd)
+   Stop GenericSay from reannouncing BRLTTY version during cursor routing. (dm)
+   Add command parameter to GenericSay driver. (dm)
+   Implement ViaVoice driver. (dm)
+   List translation tables in make file. (dm)
+   Add cross-compile support to make file. (sd,dm)
+   Add INSTALL_ROOT support to make file. (dm)
+   Add Danish text translation table. Hans Schou <chlor@schou.dk>
+   Add -c (--code-page=) option to tbl2txt. (dm)
+      Initial code and tables supplied by Hans Schou <chlor@schou.dk>.
+   Clean up screen device creation in make file. (dm)
+   Make preferences menu more user-friendly. (dm,sd)
+      Choices are words rather than numbers.
+      Only present relevant items.
+   Change left/right arrow in prefs menu from prev/next item to prev/next choice. (dm)
+   Add support for tunes via sound card (/dev/dsp). (dm,np)
+   Add support for tunes via MIDI (/dev/sequencer). (dm)
+   Add support for tunes via AdLib/OPL3/SB-FM. (dm)
+   Sliding window enhancements. (sd)
+   Replace skip blank end-of-lines with configurable skip blank windows mode. (dm)
+   Implement horizontal window scroll overlap. (dm)
+      Full window right no longer does partial move to pick up end of line.
+      Single character right lets left end of window move to last column of line.
+      Wrap up at left of line goes to multiple of window width at right of previous line.
+   Display message when sound is off for critical operations like freeze/unfreeze. (sd)
+   Allow braille display to stick out to the right of the screen. (sd)
+   Add commands to switch to the next and previous virtual terminals. (sd)
+   Implement CMD_BACK (to go back after a cursor tracking motion). (dm)
+      Add to Alva driver. (np)
+      Add to BrailleLite driver. (sd)
+      Add to BrailleNote driver. (dm)
+      Add to Papenmeier driver. (dm)
+      Add to TSI driver. (sd)
+   Implement CR_DESCCHAR (describe character at routing key). (dm)
+   Implement CR_SETLEFT (left of window to routing key). (dm)
+   Rename CR_ROUTEOFFSET to CR_ROUTE. (dm)
+   Rename CR_BEGBLKOFFSET to CR_CUTBEGIN. (dm)
+   Rename CR_ENDBLKOFFSET to CR_CUTRECT. (dm)
+   Implement CR_CUTLINE (lineear cut to character). (dm)
+   Implement CR_CUTAPPEND (start cut area without clearing cut buffer). (dm)
+   Implement CR_SETMARK (remember window position). (dm)
+   Implement CR_GOTOMARK (return to remembered window position). (dm)
+   Implement CMD_{PR,NX}PROMPT (find previous/next command prompt). (dm)
+   Implement CMD_LEARN (command learn mode). (dm)
+   Remove special commands for displays without routing keys: (dm,sd)
+      Use CR_ROUTE instead of CMD_CSRJMP.
+      Use CR_CUTBEGIN instead of CMD_CUT_BEG.
+      Use CR_CUTRECT instead of CMD_CUT_END.
+   Add reverse text translation table for input from braille display. (dm,sd)
+   Get font data from kernel rather than guess at it by probing. (sd)
+   Handle font change and screen size change. (sd)
+   Make cursor routing work when keyboard is in raw mode. (dm)
+   Search list of known screen device names (/dev/vcsa0 /dev/vcsa /dev/vcc/a)
+      rather than just check for /dev/vcsa0. (dm)
+   Move key insertion, cursor routing, and virtual terminal switching into screen class. (dm)
+   Add cursor routing, cursor motion, and page switching to help screen. (dm)
+   Allow a screen driver to selectively override commands. (dm)
+   Fix holes in signal blocking during cursor routing. (dm)
+   Don't use LOG_CONS option of syslog uhtil in the background. (dm)
+   Convert CMD_ from defines to enum. (dm)
+      CombiBraille: tables.h converted to cmdtrans.h, argtrans removed.
+   Convert CMD_KEY_... commands to VAL_PASSKEY+VPK_... mechanism. (dm)
+      BrailleLite cmdtrans[] and blkey.cmd changed from unsigned char to int.
+   Rename VAL_PASSTHRU to VAL_PASSCHAR. (dm)
+   Rename VAL_BRLKEY to VAL_PASSDOTS. (dm)
+   Add the following flags for VAL_PASSCHAR and VAL_PASSDOTS: (dm)
+      VPC_CONTROL, VPC_META, VPC_SHIFT, VPC_UPPER
+   Inform readbrl of the current command context. (dm)
+   Remove TBL_CMD and TBL_ARG. (dm)
+   Log command line syntax errors to syslog. (dm)
+   Make message delay by default; add MSG_NODELAY flag. (sd)
+   Fix problems with the skipping of blank windows and ends of liens. (sd)
+   Change directory to right place if PREFIX is set. (dm)
+   Disable speech tracking when CMD_SAY is used. (np)
+   Merge LogAndStderr into LohPrint. (dm)
+   Cleanly wrap long help (-h) output lines. (dm)
+   Increase default message delay from 2 to 4 seconds. (dm)
+   Message delay is now interruptable by pressing key on braille display. (dm)
+   Startup and exiting messages now fit within 18 characters. (dm,sd)
+   Add message to alert user to presence of startup errors. (dm)
+   Warn if a configuration file directive is specified more than once. (dm)
+   Add more memory allocation and I/O error checks. (dm)
+   Control-C now usable during startup and driver restart. (dm,sd)
+   Audit all braille and speech drivers. (dm)
+      Remove printing via stdio.
+      Ensure that first line of identification output uses LOG_NOTICE.
+      Ensure that subsequent lines of identification output use LOG_INFO.
+      Remove new-lines from logged messages.
+      Ensure that all output to braille display is drained before closing. 
+   Updated manual. (dm) with help from Cheryl Homiak <chomiak@shellworld.net>
+
+June 26, 2001:
+ - BRLTTY 2.98 released:
+ - fixes to the TSI driver for Navigator 80, by Stéphane Doyon
+ - added driver for MiniBraille displays, by David Sauer <sauer@brailcom.cz>
+ - added driver for Videobraille displays, by Christian Comaschi
+   <christian_comaschi@libero.it>
+ - added driver for VisioBraille displays, by Sébastien Hinderer
+   <jrf3@wanadoo.fr>
+ - autodetection of BrailleLite 18 vs 40, by Willi Lutzenberger 
+   <willutz@gmx.net>
+ - support for Alva AS570 from Willi Lutzenberger <willutz@gmx.net>
+
+March 2001:
+ - version 2.97 (beta):
+ - Code cleanup i.e. the big mess that brltty.c was is now broken into
+   multiple files.
+ - Command and parameter to skip blank windows.
+ - Command to switch virtual terminal.
+ - Command to find the next/prev line indented not more than a certain point.
+ - Command to find next/prev line following blank lines (next/prev paragraph).
+ - Command to search for some text on the screen. Text is taken from
+   cut_buffer.
+ - Fixes to ExternalSpeech driver. Can now pass uid through speech driver
+   parameter.
+
+26 Nov 2000:
+ - version 2.96 (beta):
+ - Vario support updates from Mario Lang <mlang@home.delysid.org>
+ - ALVA Satellite 544 support from Kazunori MINATANI <99112004@gakushuin.ac.jp>
+ - Various pieces from Stéphane Doyon, most notably:
+   - cursor routing race fix that showed as a BRLTTY freeze with
+     latest 2.4.0-test* Linux kernels;
+   - BRLTTY now doesn't exit on startup when minor i.e. non-fatal
+     errors occur;
+   - loglevel lowered on less important messages to reduce noise;
+   - fixes to the module for external speech program support;
+   - TSI driver updates
+   - multiple new command bindings for speech;
+   - speech tracking;
+   - various cleanup.
+
+16 Sep 2000:
+ - version 2.95 (beta):
+ - EcoBraille driver update from Oscar Fernandez <ofa@once.es>
+ - Attribute tracking tuning by Dave Mielke <dave@mielke.cc>
+ - EuroBraille driver update from Yannick Plassiard <Yannick.Plassiard@free.fr>
+ - Added ExternalSpeech speech driver: for sending speech to an external
+   program with our custom protocol. Intended for a bit more sophisticated
+   speech features: speech tracking, and passing video attributes. 
+   First intended for use with IBM's Viavoice TTS AKA Viavoice OutLoud.
+   The external speech program will be released separately.
+ - Added support for speech tracking (for synths that provide word indexing).
+ - Added option to skip directly to next/prev line on FWINRT/LT when the
+   rest of the line is blank.
+ - MDV braille driver update.
+
+23 May 2000:
+ - version 2.90 (beta):
+ - Tieman MultiBraille driver, contributed by Wolfgang Astleitner
+   <wolfgang.astleitner@liwest.at>
+ - Put startbrl() back after daemonized because some drivers expect to have
+   all life time to probe for a terminal.  Created inithlpscr() instead.
+ - Replaced 'g++' by 'gcc' in the Makefile eliminating dependencies 
+   with libstdc++
+
+24 April 2000:
+ - version 2.51 (beta):
+ - added new driver for all Papenmeier terminals (AH)
+    - autodetection
+    - configuration via config file
+
+ - changed the startup order (AH) - new order:
+     loadconfig()
+     startbrl()     -- pm: autodetection, changes name of help file
+     intscr(helpfile)
+	
+08 April 2000:
+  - Released BRLTTY 2.50 (beta)
+  - Added Installation Bootdisk Hacking Mini-HowTo (SD, NP)
+  - Fixed BrailleLite speech loading (added RTLD_GLOBAL to dlopen() flags) (NP)
+  - TSI driver updates (SD)
+  - BrailleLite advance bar binding improvements from Pete De Vasto 
+    <pdevasto@incyte.com>
+  - Apply the -q option to all log messages. Never print debug messages.
+      If -q is specified then don't print information messages and
+      notices. (DM)
+  - Change the default of the -l option from 4 (LOG_WARNING) to 5 (LOG_NOTICE). (DM)
+  - Standardized the way in which drivers identify themselves:
+      LOG_NOTICE for configuration information, LOG_INFO for copyright.
+      First line no indent, subsequent lines indented 3 spaces. (DM)
+  - Added Papenmeier functions: CMD_SAY to status key 5, CMD_MUTE to
+      status key 4. (DM)
+  - Papenmeier status cells did not say "Info " when in info mode. Fixed. (DM)
+  - The default name of the configuration save/restore file is now
+      driver-dependent. Renamed from "/etc/brltty/brlttyconf.dat" to
+      "/etc/brltty/brltty-XX.dat", where "XX" is the two-letter
+      identifier of the braille driver. To preserve current settings
+      when upgrading, preserve and rename old file. (DM)
+  - Use getopt_long, if the installation has it, to give every option a
+      long (--keyword or --keyword=value) name. (DM)
+  - Add support for "/etc/brltty.conf" (with sample file in DOCS
+      subdirectory). (DM)
+  - Papenmeier driver now uses safe read and write routines. (DM)
+  - Safe read and write routines now available for drivers so that
+      signals won't interfere with their I/O operations. (DM)
+  - Full list of speech drivers now displayed if bad driver specified. (DM)
+  - Add more options to the GenericSay AccentSA helper script. (DM)
+  - Cursor routing has been broken -- fixed  (NP)
+  - Better fix for cursor routing which happened to re-open and redetect 
+    screen font, and incidentally writing to stderr.  Fixed  (NP)
+  - Fixed compilation warnings  (NP)
+
+01 April 2000:
+  - Released BRLTTY 2.40 (beta)
+  - Work from Dave Mielke <dave@mielke.cc>:
+    - Added helper script for Accent/SA to GenericSay.
+    - GenericSay now closes pipe to signal mute function.
+    - GenericSay command changed to /usr/local/bin/say from /usr/bin/say.
+    - Generic-say renamed to GenericSay.
+    - Speech driver are dynamically loadable.
+    - BRLTTY now has the ability to determine the character set used by 
+      the screen fonts.
+  - Credits owner for the previous item corrected (they actually should go to
+    August Hörandl).
+  - All possible dynamic loadable braille drivers are listed if there is no
+    valid selection provided.  (NP)
+
+28 March 2000:
+  - Released BRLTTY 2.30 (beta)
+  - Braille terminal drivers are now dynamically loadable.  This is a big
+    change. Credits go to:
+      August Hörandl <august.hoerandl@gmx.at>
+        Original work
+      Dave Mielke <dave@mielke.cc>
+        Resynching with current BRLTTY version, cleanup, etc.
+
+01 January 2000:
+  - Released BRLTTY 2.21 (beta)
+
+December 1999:
+  - Contribution of a driver for BAUM Vario (emulation mode 2 / HT-Protocol)
+    + a Swedish braille table from Per Lejontand <per@acc.umu.se> (with
+    assistance from Niklas Edmundsson <nikke@acc.umu.se>). BRLTTY beta
+    version 2.20 will be circulated so that this driver can be tested.
+
+October 1999:
+  - TSI driver: Workaround for quirks of TSI emulators such as Vario.
+
+June 1999:
+  - Completed first stable beta version of MDV driver.
+
+21 June 1999:
+  - Released BRLTTY 2.11 (beta)
+  - Added support for BrailleLite 40 (NP).
+  - Added autodetection of some extra CombiBraille models.  Thanks to
+    William Blokland <William_Blokland@tieman.nl>.
+  - Added Alva Delphi 80 support.  Thanks to ??? <cstrobel@crosslink.net>.
+
+23 March 1999:
+  - BRLTTY 2.1 released.
+  - Completed updates to the manual (english version only) for 2.1.
+  - missing errno.h for some drivers when compiling on my RedHat (glibc),
+    I added the include to misc.h.
+  - Work-around for bug in Linux kernel 2.0.35: beeps wouldn't stop...
+  - writebrl() and closebrl() now receive a pointer on the brldim structure,
+    like inibrl().
+  - Removed syslog warning when the default config file doesn't exist.
+  - Added EcoBraille support.  Thanks to Oscar Fernandez <ofa@once.es>.
+  - Minor update to TSI driver (2.1).
+  - Added some bindings for switching settings in config menu. Quickly
+    fixed the manual. Regenerated the german manual using latin-1 source
+    though not with all suggested options.
+  - Some tweaks to the BrailleLite driver (NP)
+  - Rework of the config menu so small braille displays can use it.
+  - Alva Delphi support added (thanks to Terry Barnaby 
+    <terry@beam.demon.co.uk>).
+    Now Alva_ABT3 is called Alva.
+  - Alva parallel port support added using J. lemmens 
+    <jlemmens@inter.nl.net> 's library.
+
+22 December 1998:
+  - BrailleLite 18 and Festival support from Nikhil added.
+    Also eliminated the need for a fixed menu item length
+    and it's now possible to use a display smaller than any menu item i.e.
+    the BrailleLite 18.
+  - Contribution of Norwegian braille tables and ibm850toiso from 
+    Helge Havnegjerde <helge.havnegjerde@c2i.net>
+
+22 July 1998: BRLTTY 2.0 released!
+  - Another fix to the cursor routing algorithm
+  - Web pages online at http://www.cam.org/~nico/brltty
+  - Fixes to compile with egcs and glibc (RH5.1)
+  - Fixed Combibraille speech support (broken when BRLTTY moved to 
+    ISO-8859-1 base charset while the Combibraille expects an IBM CP437
+    charset).
+  - Updated manual, FAQ and TODO.
+  - Fixes (hopefully) to the cursor routing algorithm in csrjmp_sub.
+  - Added syslog support functions, and messages in brltty.c.
+  - Added CMD_RESTARTBRL command to reinitialize braille driver when
+    the braille display is turned off.
+  -  Additions to TSI driver: support for PB65/80, support for all PB models
+     at 19200baud, detects when display is turned off and reinitializes itself.
+  -  Papenmeier driver update.
+  -  EuroBraille driver fixes.
+  - Added CMD_CSRJMP_VERT command which routes the cursor to the current line
+    but does not try to change the horizontal position. Hopefully will be
+    useful in lynx!
+  -  Added attribute underlining/blinking functions (experimental).
+  -  Incorporated Papenmeier braille terminal driver + German manual.
+     Thanks to August Hörandl <hoerandl@elina.htlw1.ac.at> and his team!
+  -  Alva driver fixes.
+
+
+07 April 1998: BRLTTY 1.9.0 pre-release.
+  -  Added absolute toggles (ON/OFF) flags to function defines.
+  -  Moved braille tables and tools to the BrailleTables directory.
+  -  Added Eurobraille terminal series driver.
+  -  Now BRLTTY knows which virtual console is active and preserves separate
+     information structures for each of them.  This means preserving 
+     current window position, tracking and display modes as you switch
+     from a virtual console to another. 
+  -  Nicolas Pitre now assumes maintenance of BRLTTY since Nikhil Nair
+     seems to be unreachable for quite a long time.
+  -  Modularized screen drivers, added experimental screen driver to get
+     screen image from the "screen" program.  A patch for "screen" is provided
+     in the Patches directory.
+  -  Made all different methods of handling status cells available
+     within the configuration menu.  The default is determined by
+     the compiled in braille driver.
+  -  Incorporated patch from Joerg Korinek <korinek@ira.uka.de> which lets
+     the main BRLTTY process continue while cursor routing is in progress.
+     Thanks!
+  -  Added some new functions to scr.cc, which add a new `thread' of
+     screen reading.  This is used by csrjmp_sub(), to avoid race conditions.
+     [The problem was that a forked subprocess shares filedescriptors with
+     the parent, and `clone (0, SIGCHLD | COPYVM | COPYFD)' (as documented
+     in clone(2)) wouldn't compile.]
+  -  CURSOR ROUTING NOW APPEARS TO BE STABLE!!!
+  -  BRLTTY placed under CVS revision control - Id headers added to many
+     files.
+  -  Cursor routing timeout made an idle timeout of 2 seconds: routing
+     continues until the cursor is idle for this length of time.
+  -  Added CMD_SKPIDLNS.
+  -  Speech support modularised.  Added speech.h, as well as SPK_TARGET in
+     the Makefile and corresponding directories.
+  -  Added very simple speech interface and few speech drivers.
+  -  Status cells standardised: two types (Alva/Tieman) or none, switch in
+     configuration menu.  Hence another new config file format :-(.
+  -  A few bugfixes.
+  -  Some job control finetuning in csrjmp() and csrjmp_sub() - now use
+     SIGUSR1 to kill child process before another child is forked; child
+     blocks this signal for most of the time.
+  -  Added support for (optional) Makefiles in driver subdirectories.
+
+
+17 September 1996: BRLTTY 1.0.2 released.
+  -  Incorporated skipping of identical lines.  Adapted to make a line
+     containing the cursor different to any other.
+  -  Config file format updated, so old config files won't work any more.
+  -  Some tidying up of the archive and of the documentation.
+
+
+13 September 1996: BRLTTY 1.0.1 released.
+  -  Speech support added for CombiBraille.
+  -  Documentation brought up to date.
+
+
+3 September 1996: prerelease of BRLTTY 1.0.1.
+  -  Screen reading library rewritten from scratch, in C++ (but without
+     using any class libraries, so no extra shared libraries are needed).
+     In particular, the dependence on the Linux vcsa format is gone: there
+     is a new help file format which is far more compact than the old one
+     (txt2hlp replaces txt2scrn, brlttydev.hlp replaces brlttyhelp.scr),
+     and freeze mode works properly, by using a dynamically allocated
+     memory buffer instead of the old /tmp/vcsa.frz hack.
+  -  BRLTTY can now survive as a stand-alone executable, with absolutely no
+     data files - even if /etc/brltty/ is not found.  This is done by
+     compiling in the default text translation table (now selected in the
+     Makefile) and the attribute translation table.  The compilation is done
+     by using the new filter comptable to generate text.auto.h and
+     attrib.auto.h.  A text translation table is now only loaded if the
+     -t option is specified.
+  -  -q|--quiet now surpresses the start-up message on the Braille display.
+
+  (Documentation still to be updated ...)
+     
+
+28 July 1996: BRLTTY 1.0 released.

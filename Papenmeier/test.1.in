@@ -1,0 +1,46 @@
+# test ident
+identification 1
+identity = 2 # comment
+
+# test comments and helpfilename
+helpfile "test"
+HelpFile is "test 1" # another comment
+HELPFILE = "test/test/3"
+
+terminal = "Papenmeier Screen 2D"
+type "2d lite"
+
+status 1 = current
+status 2 = horiz dispmode
+status 3 = flag frz
+status 4 = flag blink
+
+modifier = status 1
+modifier = front 1
+modifier = front 13
+
+# CMD_SIXDOTS '6'
+SIXDOTS = status 1 
+#  CMD_LNDN 'd'
+CMD_LNDN = s 2
+#  CMD_WINUP '<'
+WINUP front 1
+#  CMD_LNUP 'u'
+CMD_LNUP = f 2
+
+HWINLT = f 3 and status 1
+CMD_HOME = front 4 front 13
+INFO f 5 f 13 s 1
+
+TOP = routing and front 13
+SAY = status 1 and front 13
+#
+inputmode = status 22
+#
+inputmode on = status 22 and front 13
+#
+inputmode off = status 22
+#
+#
+BACKSPACE = front 5
+FUNCTION = routing

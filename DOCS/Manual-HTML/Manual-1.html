@@ -1,0 +1,151 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+ <META NAME="GENERATOR" CONTENT="SGML-Tools 1.0.9">
+ <TITLE>BRLTTY: Introduction</TITLE>
+ <LINK HREF="Manual-2.html" REL=next>
+
+ <LINK HREF="Manual.html#toc1" REL=contents>
+</HEAD>
+<BODY>
+<A HREF="Manual-2.html">Next</A>
+Previous
+<A HREF="Manual.html#toc1">Contents</A>
+<HR>
+<H2><A NAME="s1">1. Introduction</A></H2>
+
+<P>BRLTTY gives a braille user access to the text consoles of a Linux system.
+It runs as a background process (daemon)
+which operates a refreshable braille display,
+and can be started very early in the system boot sequence.
+It enables a braille user, therefore, to easily independently handle
+aspects of system administration such as
+single user mode entry,
+file system recovery,
+and boot problem analysis.
+It even greatly eases such routine tasks as logging in.
+<P>BRLTTY reproduces a rectangular portion of the screen
+(referred to within this document as `the window')
+as braille text on the display.
+Controls on the display can be used to
+move the window around on the screen,
+to enable and disable various viewing options,
+and to perform special functions.
+<P>
+<H2><A NAME="ss1.1">1.1 A Brief History</A>
+</H2>
+
+<P>The BRLTTY project started in July, 1995.
+The initial team consisted of Nikhil Nair and James Bowden.
+The first version ran with Blazie Engineering's Braille Lite.
+Since, at that time, the Braille Lite hadn't been designed to be
+a dedicated refreshable braille display for a computer,
+its response time was far too slow.
+This situation has now been corrected.
+<P>The second version, BRLTTY 0.22 BETA, was released in September of 1995.
+It was the first to be released publicly.
+As well as the Braille Lite, it also supported
+Tieman B.V.'s CombiBraille series.
+<P>James Bowden stopped being an active developer,
+although his continued help in other areas (including documentation)
+was much appreciated.
+Two new members, Nicolas Pitre and Stéphane Doyon, joined the team.
+They added support for Alva and Telesensory Systems Inc. displays,
+as well as many excellent features for the system as a whole.
+A stable version (1.0) was released sometime around the end of 1996.
+<P>Support for Papenmeier displays has been contributed by a team from
+The Technical High School, Department of Electrical Engineering, Vienna, Austria.
+Support for the TSI displays was completed,
+and support for the EuroBraille brand was added.
+New features were also continually being added to the system.
+Regretably, Nikhil Nair stopped working on the BRLTTY project.
+Nicolas Pitre assumed the job of maintainer.
+<P>Version 2.0 was released during the summer of 1998,
+and version 2.1 was released in March of 1999.
+It added support for
+EcoBraille (thanks to Oscar Fernandez),
+Alva Delphi (thanks to Terry Barnaby),
+and Braille Lite 18 (from Nikhil Nair),
+as well as Some small improvements and fixes.
+<P>Dave Mielke began to submit fixes and enhancements during 2000,
+and joined the team as the next maintainer in June of 2001.
+Thanks to Nicolas Pitre for his many years of service in this capacity.
+<P>BRLTTY now supports many braille displays
+(see section 
+<A HREF="Manual-7.html#displays">Supported Braille Displays</A> for the full list),
+as well as some speech synthesizers
+(see section 
+<A HREF="Manual-7.html#synthesizers">Supported Speech Synthesizers</A> for the full list).
+See section 
+<A HREF="Manual-8.html#contact">Contact Information</A> for details regarding how to contact the BRLTTY team.
+<P>
+<H2><A NAME="ss1.2">1.2 System Requirements</A>
+</H2>
+
+<P>To date, BRLTTY only runs under Linux.
+While ports to other Unix-like operating systems aren't currently planned,
+we do welcome any interest in such projects.
+<P>This software has been tested on a variety of Linux systems:
+<UL>
+<LI>Desktops, laptops, and some PDAs.</LI>
+<LI>Processors from a 386SX20 to a Pentium.</LI>
+<LI>A huge range of memory sizes.</LI>
+<LI>Several distributions including Debian, Red Hat, Slackware, and SuSE.</LI>
+<LI>Many kernels, including 1.2.13, 2.0, 2.2, and 2.4.</LI>
+<LI>A DEC Alpha
+(only tested once under Red Hat Alpha Linux on a noname board kindly lent
+to the Cambridge University Computer Laboratory by DEC in Reading, England).</LI>
+</UL>
+<P>BRLTTY's main dependence on Linux is a special device (<CODE>vcsa</CODE>)
+via which the screen contents and attributes can be read.
+An experimental patch for the <CODE>screen</CODE> program is provided
+(see the <CODE>Patches</CODE> subdirectory).
+It allows BRLTTY to access <CODE>screen</CODE>'s screen image via shared memory,
+and goes a long way toward making porting to other platforms possible
+(even to those which don't have their own screen content inspection facility).
+The main weakness of the <CODE>screen</CODE> approach is that 
+BRLTTY can't be started until the user has logged in.
+<P>BRLTTY, as noted above, relies on a special device
+which provides easy access to the contents of the current virtual console.  
+This device was introduced in version 1.1.92 of the Linux kernel,
+and is normally called either <CODE>/dev/vcsa</CODE> or <CODE>/dev/vcsa0</CODE>
+(on systems with <CODE>devfs</CODE> it's called <CODE>/dev/vcc/a</CODE>).
+For this reason, Linux kernel 1.1.92 or later is required.
+<P>In order for BRLTTY to successfully communicate with the refreshable braille display,
+the correct Linux driver (serial, parallel, USB) must be configured into the kernel.
+If the driver requires special options, then they must be supplied.
+If it's built into the kernel, then its options must be
+set during the kernel configuration procedure,
+supplied at the LILO boot prompt,
+or specified on an <CODE>append</CODE> directive in <CODE>/etc/lilo.conf</CODE>.
+If it's a module, then its options must be
+supplied as options to the <CODE>modprobe</CODE> (or <CODE>insmod</CODE>) command,
+or specified on an <CODE>options</CODE> directive in <CODE>/etc/modules.conf</CODE>
+(called <CODE>/etc/conf.modules</CODE> by some older distributions).
+<P>BRLTTY only works with text-based consoles and applications.
+It can be used with <CODE>curses</CODE>-based applications,
+but not with any application which
+either uses special VGA features
+or requires a graphics console (like the X Window system).
+<P>You must also, of course, possess a supported refreshable braille display
+(see section 
+<A HREF="Manual-7.html#displays">Supported Braille Displays</A> for the complete list).
+We hope that additional displays will be supported in the future, so,
+if you have any vaguely technical programming information
+for a device which you'd like to see supported,
+then please let us know (see section 
+<A HREF="Manual-8.html#contact">Contact Information</A>).
+<P>Finally, you need tools to build the executable from its source:
+<CODE>make</CODE>, <CODE>C</CODE> and <CODE>C++</CODE> compiler, <CODE>yacc</CODE>, <CODE>awk</CODE>, etc.
+The development tools provided with standard Linux distributions should suffice.
+BRLTTY has been tested on many distributions,
+including Slackware, Debian, and Red Hat.
+If you have problems,
+then contact us and we'll compile a binary for you.
+<P>
+<HR>
+<A HREF="Manual-2.html">Next</A>
+Previous
+<A HREF="Manual.html#toc1">Contents</A>
+</BODY>
+</HTML>
